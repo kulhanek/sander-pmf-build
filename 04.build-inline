@@ -2,11 +2,11 @@
 
 export DEVELOPMENT_ROOT=$PWD
 
-if [ $# -eq 1 ]; then
+if [ $# -ne 1 ]; then
    case $1 in
-     "release") MODE="-DCMAKE_BUILD_TYPE Release"
+     "release") MODE="-DCMAKE_BUILD_TYPE=Release"
      ;;
-     "debug") MODE="-DCMAKE_BUILD_TYPE Debug"
+     "debug") MODE="-DCMAKE_BUILD_TYPE=Debug"
      ;;
    esac
 fi
@@ -25,7 +25,9 @@ cd $OLDPWD
 }
 # ------------------------------------------------------------------------------
 
-cat repositories | grep -v '^#' | while read A B; do
-   build_code $A $B || exit 1
+cat repositories | grep -v '^#' | while read A B C; do
+   if [ -z "$2" ] || [ "$2" == "$B" ]; then 
+      build_code $A $B || exit 1
+   fi
 done
 
