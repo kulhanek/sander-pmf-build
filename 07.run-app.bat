@@ -1,19 +1,22 @@
 @echo off
 REM windows batch
-
+set PWD=%cd%
 setlocal ENABLEDELAYEDEXPANSION
+
+SET INSTPATH=%~dp0
+SET REPO_PATH=%INSTPATH:~0,-1%
 
 set PATH=
 
-if EXIST tools.paths (
-    for /f "tokens=*" %%L in (tools.paths) do (
+if EXIST "%REPO_PATH%\tools.paths" (
+    for /f "tokens=*" %%L in ( %REPO_PATH%\tools.paths ) do (
         for /f "tokens=1" %%S in ("%%L") do set A=%%S
 
         if NOT "!A!" == "#" call:gen_path_win !A!
     )
 )
 
-for /f "tokens=*" %%L in (repositories) do (
+for /f "tokens=*" %%L in ( %REPO_PATH%\repositories ) do (
    for /f "tokens=1" %%S in ("%%L") do set A=%%S
    for /f "tokens=2" %%T in ("%%L") do set B=%%T 
 
@@ -23,7 +26,9 @@ for /f "tokens=*" %%L in (repositories) do (
 echo %PATH%
 
 REM run the application
-%1%
+cd  %PWD%
+echo Cmd: %*
+%* 
 
 endlocal
 
@@ -35,9 +40,9 @@ REM -----------------------------------------------------------------
 :gen_path
     set P=%1
     set P=%P:/=\%
-    if EXIST %cd%\%P%\lib set PATH=%PATH%;%cd%\%P%\lib
-    if EXIST %cd%\%P%\lib\drivers set PATH=%PATH%;%cd%\%P%\lib\drivers
-    if EXIST %cd%\%P%\bin set PATH=%PATH%;%cd%\%P%\bin
+    if EXIST %REPO_PATH%\%P%\lib set PATH=%PATH%;%REPO_PATH%\%P%\lib
+    if EXIST %REPO_PATH%\%P%\lib\drivers set PATH=%PATH%;%REPO_PATH%\%P%\lib\drivers
+    if EXIST %REPO_PATH%\%P%\bin set PATH=%PATH%;%REPO_PATH%\%P%\bin
 goto:EOF
 
 :gen_path_win
