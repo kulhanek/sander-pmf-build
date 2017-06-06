@@ -27,7 +27,7 @@ if ! [ -d src/projects/pmflib/5.0 ]; then
 fi
 
 cd src/projects/pmflib/5.0
-./UpdateGITVersion activate
+./UpdateGitVersion activate
 VERS="17.5.`git rev-list --count HEAD`.`git rev-parse --short HEAD`"
 cd $_PWD
 
