@@ -2,3 +2,11 @@
 /tests
 repositories.push
 tools.paths
+CMakeCache.txt
+CMakeFiles/
+DartConfiguration.tcl
+Makefile
+bin/
+cmake_install.cmake
+lib/
+test/
