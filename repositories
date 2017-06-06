@@ -12,4 +12,4 @@ src/projects/prmfile/1.0 prmfile
 src/projects/netlib/1.0 netlib
 src/projects/pmflib/5.0 pmflib T
 # final code
-src/thirdparty/sander-pmf/15 sander-pmf
+src/thirdparty/sander-pmf/17 sander-pmf
