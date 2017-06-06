@@ -9,6 +9,10 @@ if type module &> /dev/null; then
     module add cmake
 fi
 
+# setup MPI environment
+module add openmpi:2.0.2-gcc
+export FC=mpif90
+
 # determine number of available CPUs if not specified
 if [ -z "$N" ]; then
     N=1
@@ -40,7 +44,7 @@ fi
 # names ------------------------------
 NAME="sander-pmf"
 ARCH=`uname -m`
-MODE="single" 
+MODE="para" 
 echo "Build: $NAME:$VERS:$ARCH:$MODE"
 echo ""
 
