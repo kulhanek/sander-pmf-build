@@ -10,7 +10,7 @@ if type module &> /dev/null; then
 fi
 
 # setup MPI environment
-module add openmpi:2.0.2-gcc
+module add openmpi:2.0.1-gcc
 export FC=mpif90
 
 # determine number of available CPUs if not specified
@@ -31,7 +31,7 @@ if ! [ -d src/projects/pmflib/5.0 ]; then
 fi
 
 cd src/projects/pmflib/5.0
-./UpdateGitVersion activate
+./UpdateGITVersion activate
 VERS="17.5.`git rev-list --count HEAD`.`git rev-parse --short HEAD`"
 cd $_PWD
 
