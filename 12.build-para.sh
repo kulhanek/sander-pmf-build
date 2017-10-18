@@ -16,7 +16,7 @@ module add cmake
 
 # setup MPI environment
 module add openmpi:2.0.1-gcc
-export FC=mpif90
+export FC=mpifort
 
 # determine number of available CPUs if not specified
 if [ -z "$N" ]; then
@@ -72,7 +72,7 @@ cat > $SOFTBLDS/$NAME:$VERS:$ARCH:$MODE.bld << EOF
         <variable name="PATH" value="\$SOFTREPO/$PREFIX/$NAME/$VERS/$ARCH/$MODE/bin" operation="prepend"/>
     </setup>
     <deps>
-        <dep name="openmpi:2.0.1-gcc" type="sync"/>
+        <dep name="`module getactmod openmpi 2>&1`" type="sync"/>
     </deps>
 </build>
 EOF
