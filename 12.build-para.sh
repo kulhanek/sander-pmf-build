@@ -4,10 +4,15 @@ SITES="clusters"
 PREFIX="core"
 
 # ------------------------------------------------------------------------------
-# add cmake from modules if they exist
-if type module &> /dev/null; then
-    module add cmake
+
+if [ -z "$AMS_ROOT" ]; then
+   echo "ERROR: This installation script works only in the Infinity environment!"
+   exit 1
 fi
+
+# ------------------------------------
+# required for building
+module add cmake
 
 # setup MPI environment
 module add openmpi:2.0.1-gcc
@@ -35,11 +40,11 @@ cd src/projects/pmflib/5.0
 VERS="17.5.`git rev-list --count HEAD`.`git rev-parse --short HEAD`"
 cd $_PWD
 
-# ------------------------------------
-if [ -z "$AMS_ROOT" ]; then
-   echo "ERROR: This installation script works only in the Infinity environment!"
-   exit 1
-fi
+# ------------------------------------------------------------------------------
+
+echo ""
+echo ">>> Number of CPUs for building: $N"
+echo ""
 
 # names ------------------------------
 NAME="sander-pmf"
@@ -50,7 +55,8 @@ echo ""
 
 # build and install software ---------
 cmake -DCMAKE_INSTALL_PREFIX="$SOFTREPO/$PREFIX/$NAME/$VERS/$ARCH/$MODE" .
-make install
+if [ $? -ne 0 ]; then exit 1; fi
+make -j "$N" install
 if [ $? -ne 0 ]; then exit 1; fi
 
 # prepare build file -----------------
@@ -65,6 +71,9 @@ cat > $SOFTBLDS/$NAME:$VERS:$ARCH:$MODE.bld << EOF
         <variable name="AMS_PACKAGE_DIR" value="$PREFIX/$NAME/$VERS/$ARCH/$MODE" operation="set" priority="modaction"/>
         <variable name="PATH" value="\$SOFTREPO/$PREFIX/$NAME/$VERS/$ARCH/$MODE/bin" operation="prepend"/>
     </setup>
+    <deps>
+        <dep name="openmpi:2.0.1-gcc" type="sync"/>
+    </deps>
 </build>
 EOF
 

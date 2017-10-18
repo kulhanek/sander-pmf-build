@@ -4,10 +4,15 @@ SITES="clusters"
 PREFIX="core"
 
 # ------------------------------------------------------------------------------
-# add cmake from modules if they exist
-if type module &> /dev/null; then
-    module add cmake
+
+if [ -z "$AMS_ROOT" ]; then
+   echo "ERROR: This installation script works only in the Infinity environment!"
+   exit 1
 fi
+
+# ------------------------------------
+# required for building
+module add cmake
 
 # determine number of available CPUs if not specified
 if [ -z "$N" ]; then
@@ -31,11 +36,11 @@ cd src/projects/pmflib/5.0
 VERS="17.5.`git rev-list --count HEAD`.`git rev-parse --short HEAD`"
 cd $_PWD
 
-# ------------------------------------
-if [ -z "$AMS_ROOT" ]; then
-   echo "ERROR: This installation script works only in the Infinity environment!"
-   exit 1
-fi
+# ------------------------------------------------------------------------------
+
+echo ""
+echo ">>> Number of CPUs for building: $N"
+echo ""
 
 # names ------------------------------
 NAME="sander-pmf"
@@ -46,7 +51,8 @@ echo ""
 
 # build and install software ---------
 cmake -DCMAKE_INSTALL_PREFIX="$SOFTREPO/$PREFIX/$NAME/$VERS/$ARCH/$MODE" .
-make install
+if [ $? -ne 0 ]; then exit 1; fi
+make -j "$N" install
 if [ $? -ne 0 ]; then exit 1; fi
 
 # prepare build file -----------------
