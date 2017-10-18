@@ -12,11 +12,10 @@ fi
 
 # ------------------------------------
 # required for building
-module add cmake
+module add cmake intelcdk git
 
 # setup MPI environment
-module add openmpi:2.0.1-gcc
-export FC=mpifort
+module add openmpi-intel
 
 # determine number of available CPUs if not specified
 if [ -z "$N" ]; then

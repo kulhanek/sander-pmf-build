@@ -12,7 +12,8 @@ fi
 
 # ------------------------------------
 # required for building
-module add cmake
+module add cmake git
+module add intelcdk
 
 # determine number of available CPUs if not specified
 if [ -z "$N" ]; then
