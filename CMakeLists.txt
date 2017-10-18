@@ -6,13 +6,6 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.8 FATAL_ERROR)
 #SET(CMAKE_VERBOSE_MAKEFILE ON)
 
 # ==============================================================================
-# conditional setup ------------------------------------------------------------
-# ==============================================================================
-
-# target architecture: allowed values are: i686, em64t
-SET(TARGET_ARCHITECTURE em64t)
-
-# ==============================================================================
 # project setup ----------------------------------------------------------------
 # ==============================================================================
 
@@ -117,6 +110,7 @@ ADD_DEPENDENCIES(cprmfile_shared hipoly_shared)
 ADD_DEPENDENCIES(netlib_shared hipoly_shared cprmfile_shared)
 ADD_DEPENDENCIES(fpmf_shared fprmfile_shared fscimafic_shared franlux_shared)
 ADD_DEPENDENCIES(cpmf_shared hipoly_shared cscimafic_shared netlib_shared)
+ADD_DEPENDENCIES(utils_shared fnetcdf_shared)
 
 IF(MPI_ENABLED)
     ADD_DEPENDENCIES(_sander.PMF.MPI fnetcdf_shared fpmf_shared sander_drv_shared)
