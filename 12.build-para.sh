@@ -62,6 +62,9 @@ if [ $? -ne 0 ]; then exit 1; fi
 SOFTBLDS="$AMS_ROOT/etc/map/builds/$PREFIX"
 VERIDX=`ams-map-manip newverindex $NAME:$VERS:$ARCH:$MODE`
 
+mkdir -p $SOFTBLDS
+if [ $? -ne 0 ]; then exit 1; fi
+
 cat > $SOFTBLDS/$NAME:$VERS:$ARCH:$MODE.bld << EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Advanced Module System (AMS) build file -->
@@ -75,13 +78,22 @@ cat > $SOFTBLDS/$NAME:$VERS:$ARCH:$MODE.bld << EOF
     </deps>
 </build>
 EOF
-
-ams-map-manip addbuilds $SITES $NAME:$VERS:$ARCH:$MODE
 if [ $? -ne 0 ]; then exit 1; fi
 
-ams-map-manip distribute
-if [ $? -ne 0 ]; then exit 1; fi
+echo ""
+echo "Adding builds ..."
+ams-map-manip addbuilds $SITES $NAME:$VERS:$ARCH:$MODE >> ams.log 2>&1
+if [ $? -ne 0 ]; then echo ">>> ERROR: see ams.log"; exit 1; fi
 
-ams-cache rebuildall
+echo "Distribute builds ..."
+ams-map-manip distribute >> ams.log 2>&1
+if [ $? -ne 0 ]; then echo ">>> ERROR: see ams.log"; exit 1; fi
+
+echo "Rebuilding cache ..."
+ams-cache rebuildall >> ams.log 2>&1
+if [ $? -ne 0 ]; then echo ">>> ERROR: see ams.log"; exit 1; fi
+
+echo "Log file: ams.log"
+echo ""
 
 
