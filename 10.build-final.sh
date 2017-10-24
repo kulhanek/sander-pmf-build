@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -o pipefail
+
 ./CMakeClean.sh deep
 
 ./11.build-single.sh 2>&1 | tee single.log
