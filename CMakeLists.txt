@@ -111,6 +111,7 @@ ADD_DEPENDENCIES(netlib_shared hipoly_shared cprmfile_shared)
 ADD_DEPENDENCIES(fpmf_shared fprmfile_shared fscimafic_shared franlux_shared)
 ADD_DEPENDENCIES(cpmf_shared hipoly_shared cscimafic_shared netlib_shared)
 ADD_DEPENDENCIES(utils_shared fnetcdf_shared fpmf_shared)
+ADD_DEPENDENCIES(sander_drv_shared fpmf_shared)
 
 IF(MPI_ENABLED)
     ADD_DEPENDENCIES(_sander.PMF.MPI fnetcdf_shared fpmf_shared sander_drv_shared)
