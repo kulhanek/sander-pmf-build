@@ -9,6 +9,6 @@ if [ $? -ne 0 ]; then exit 1; fi
 
 ./CMakeClean.sh deep
 
-./12.build-para.sh | tee para.log
+./12.build-para.sh 2>&1 | tee para.log
 if [ $? -ne 0 ]; then exit 1; fi
 
