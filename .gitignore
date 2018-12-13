@@ -18,3 +18,7 @@ test/
 06.gen-runtime-paths.sh
 08.git-status.sh
 sander-pmf-lib.creator.user
+ams.log
+install_manifest.txt
+para.log
+single.log

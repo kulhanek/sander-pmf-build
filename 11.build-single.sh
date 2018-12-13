@@ -1,7 +1,7 @@
 #!/bin/bash
 
 SITES="clusters"
-PREFIX="core"
+PREFIX="ncbr"
 
 # ------------------------------------------------------------------------------
 
@@ -25,17 +25,10 @@ if [ -z "$N" ]; then
 fi
 
 # ------------------------------------------------------------------------------
-# update revision number
-_PWD=$PWD
-if ! [ -d src/projects/pmflib/5.0 ]; then
-    echo "src/projects/pmflib/5.0 - not found"
-    exit 1
+# run pre-installation hook if available
+if [ -f ./preinstall-hook ]; then
+    source ./preinstall-hook || exit 1
 fi
-
-cd src/projects/pmflib/5.0
-./UpdateGitVersion activate
-VERS="17.5.`git rev-list --count HEAD`.`git rev-parse --short HEAD`"
-cd $_PWD
 
 # ------------------------------------------------------------------------------
 
