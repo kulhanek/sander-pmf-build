@@ -17,6 +17,9 @@ module add cmake intelcdk git
 # setup MPI environment
 module add openmpi-intel
 
+# use parallel MKL
+export MKL_MODE=parallel
+
 # determine number of available CPUs if not specified
 if [ -z "$N" ]; then
     N=1
