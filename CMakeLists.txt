@@ -90,6 +90,7 @@ ADD_SUBDIRECTORY(src/thirdparty/ranlux/1.0)
 ADD_SUBDIRECTORY(src/thirdparty/csparse/2.2.1)
 ADD_SUBDIRECTORY(src/thirdparty/netcdfcore/4.0.1)
 ADD_SUBDIRECTORY(src/thirdparty/nlopt/2.4.2)
+ADD_SUBDIRECTORY(src/thirdparty/lbfgs/1.0)
 
 # projects ---------------------------------------
 ADD_SUBDIRECTORY(src/projects/hipoly/1.0)
@@ -128,4 +129,5 @@ IF(NOT MKL_FOUND)
     ADD_DEPENDENCIES(fpmf_shared fblasd_shared flapackd_shared)
 ENDIF(NOT MKL_FOUND)
 
+ADD_DEPENDENCIES(abf-optgprhyprms flbfgs_shared)
 
