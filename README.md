@@ -2,7 +2,7 @@
 Utilities for testing and building of the [sander-pmf](https://github.com/kulhanek/sander-pmf) package.
 
 ## sander-pmf Features:
-* modified version of sander from [AMBER](https//ambermd.org)
+* modified version of sander from [AMBER](https://ambermd.org)
 * integration with [PMFLib](https://github.com/kulhanek/pmflib)
 
 ## Building and Installation
