@@ -3,14 +3,14 @@
 # ------------------------------------------------------------------------------
 # update revision number
 _PWD=$PWD
-if ! [ -d src/projects/pmflib/5.0 ]; then
-    echo "src/projects/pmflib/5.0 - not found"
+if ! [ -d src/projects/pmflib/6.0 ]; then
+    echo "src/projects/pmflib/6.0 - not found"
     exit 1
 fi
 
-cd src/projects/pmflib/5.0
+cd src/projects/pmflib/6.0
 ./UpdateGitVersion activate
-VERS="17.5.`git rev-list --count HEAD`.`git rev-parse --short HEAD`"
+VERS="17.6.`git rev-list --count HEAD`.`git rev-parse --short HEAD`"
 cd $_PWD
 
 
